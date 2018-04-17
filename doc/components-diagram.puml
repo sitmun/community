@@ -1,0 +1,20 @@
+@startuml
+title Relationship Model Apps - Plugins SITMUN
+skinparam style strictuml
+hide methods
+hide members
+
+class sitmun-admin-app
+
+class sitmun-territorial-app
+
+class sitmun-plugin-core
+
+class sitmun-plugin-demo
+
+"sitmun-admin-app" --|> "sitmun-plugin-core": depends on
+"sitmun-territorial-app" --|> "sitmun-plugin-core": depends on
+"sitmun-plugin-demo" -down-|> "sitmun-plugin-core": depends on
+"sitmun-territorial-app" -down-|> "sitmun-plugin-demo": depends on
+
+@enduml
