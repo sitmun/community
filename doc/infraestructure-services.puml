@@ -1,0 +1,25 @@
+@startuml
+
+title Services Infraestructure
+
+
+
+[Git] as git
+[GitHub] as github
+[TravisCI] as travis
+[Gradle] as gradle
+[Maven] as maven
+[SonarCloud] as sonar
+[Docker] as docker
+package Server <<Frame>> {
+}
+
+git -up-> github: git pull
+github <-right- travis: build
+travis -down-> gradle
+gradle -down-> maven
+travis <-right- sonar: test
+sonar <-right- docker
+docker -down-> Server: deploy
+
+@enduml

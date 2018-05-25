@@ -1,0 +1,29 @@
+@startuml
+
+skinparam componentStyle uml2
+
+title Static Technology Diagram
+
+package "sitmun-admin-app" as admin {
+    component [App Graphic User\nInterface] as gui1
+}
+
+package "sitmun-territorial-app" as territorial {
+    component [App Graphic User\nInterface] as gui2
+}
+
+
+package "sitmun-plugin-core" as core {
+    [OpenLayers4] as ol
+    [Material Angular] as ma
+    [Angular6] as an
+    [SpringBoot] as sb
+    [Spring5] as sp
+    [Hibernate] as hi
+} 
+
+
+admin -down--|> core: depends on
+territorial -down--|> core: depends on
+
+@enduml
