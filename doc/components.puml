@@ -1,0 +1,61 @@
+@startuml
+
+skinparam componentStyle uml2
+
+title Component diagram
+
+rectangle "App Admin" as admin <<Client>> {
+    rectangle "Angular6 + Material Angular" as an <<Front-End Framework>> {
+        [Plugin Core] as pc
+        [OpenLayers4] as ol
+        
+        pc -left- ol
+    }
+}
+
+
+rectangle "App Territorial" as territ <<Client>> {
+    rectangle "Plugin Demo" as pd
+    rectangle "Angular6 + Material Angular" as an1 <<Front-End Framework>> {
+        [Plugin Core] as pc1
+        [OpenLayers4] as ol1
+        
+        pc1 -left- ol1
+    }
+}
+
+    
+rectangle "Server" as server <<Server>> {
+    rectangle "Spring5" as spr5 <<Back-End Framework>> {
+        rectangle "Plugin Core" as pcs {
+            [REST Controller] as rest
+            interface "REST API" as api
+            [Model] as model
+        }
+    }
+    [Hibernate] as hi
+}
+
+[External WMS] as wms
+ol -down- wms
+ol1 -down- wms
+
+
+database "Database" as db{
+}
+
+
+:User1:
+:User2:
+
+User1 -down- territ : <<Internet>>
+User2 -- admin : <<Internet>>
+pc -down-( api
+pc1 -down-( api
+api -down- rest
+rest -left- model
+model -left- hi
+hi -down- db
+
+
+@enduml
