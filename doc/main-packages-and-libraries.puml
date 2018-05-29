@@ -4,18 +4,18 @@ skinparam componentStyle uml2
 
 title Main packages and libraries
 
-package "sitmun-admin-app" as admin {
+package "sitmun-admin-app" as admin <<application>> {
 }
 
-package "sitmun-territorial-app" as territorial {
+package "sitmun-territorial-app" as territorial <<application>> {
 }
 
 
-package "sitmun-plugin-demo" as demo {
+package "sitmun-plugin-demo" as demo <<plugin>> {
 
 }
 
-package "sitmun-plugin-core" as core {
+package "sitmun-plugin-core" as core <<plugin>> {
     package "Front-End Libraries" {
         package "Bootstrap" as BS
         package "RequireJS" as RqJS
