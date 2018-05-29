@@ -1,0 +1,38 @@
+@startuml
+
+skinparam componentStyle uml2
+
+title Main packages and libraries
+
+package "sitmun-admin-app" as admin {
+}
+
+package "sitmun-territorial-app" as territorial {
+}
+
+
+package "sitmun-plugin-demo" as demo {
+
+}
+
+package "sitmun-plugin-core" as core {
+    package "Front-End Libraries" {
+        package "Bootstrap" as BS
+        package "RequireJS" as RqJS
+        package "OpenLayers4" as OL4
+        package "Material Angular" as MA
+        package "Angular6" as An6
+    }
+    package "Back-End Libraries" {
+        package "SpringBoot" as SprB
+        package "Spring5" as Spr5
+        package "Hibernate" as Hi
+    }
+} 
+
+
+admin ..> core
+territorial ..> demo
+demo ..> core
+
+@enduml
