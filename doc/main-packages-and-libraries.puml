@@ -17,7 +17,7 @@ package "sitmun-plugin-demo" as demo <<plugin>> {
 
 package "sitmun-plugin-core" as core <<plugin>> {
     package "Front-End Libraries" {
-        package "RequireJS" as RqJS
+        package "Webpack" as WP
         package "OpenLayers4" as OL4
         package "Material Angular" as MA
         package "Angular6" as An6
