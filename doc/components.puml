@@ -1,61 +1,82 @@
 @startuml
 
 skinparam componentStyle uml2
+skinparam component {
+    backgroundColor<<JavaScript Library>> MistyRose
+    backgroundcolor<<Java Library>> LightSkyBlue
+}
+
 
 title Component diagram
 
-rectangle "App Admin" as admin <<Client>> {
-    rectangle "Angular6 + Material Angular" as an <<Front-End Framework>> {
-        [Plugin Core] as pc
-        [OpenLayers4] as ol
+rectangle "App Admin" as admin <<Client Angular6>> {
+        [App/Home] as ah
+        [Plugin Core] <<TypeScript>> as pc
+        interface "**TypeScript API**" as tsapi
+        pc -up- tsapi
+        [OpenLayers4] <<JavaScript Library>> as ol
+        [Proj4js] <<JavaScript Library>> as p4js
+        [Angular6 + MaterialAngular] <<Front-End Framework>> as a6 #Gold
         
+        ah -( tsapi
         pc -left- ol
-    }
+        pc - p4js
+        pc - a6
 }
 
 
-rectangle "App Territorial" as territ <<Client>> {
-    rectangle "Plugin Demo" as pd
-    rectangle "Angular6 + Material Angular" as an1 <<Front-End Framework>> {
-        [Plugin Core] as pc1
-        [OpenLayers4] as ol1
+rectangle "App Territorial" as territ <<Client Angular6>> {
+        [App/Home] as ah1
+        [Plugin Core] <<TypeScript>> as pc1
+        interface "**TypeScript API**" as tsapi1
+        pc1 -up- tsapi1
+        [OpenLayers4] <<JavaScript Library>> as ol1
+        [Proj4js] <<JavaScript Library>> as p4js1
+        component "Plugin Demo" <<TypeScript>> as pd
+        [Angular6 + MaterialAngular] <<Front-End Framework>> as a61 #Gold
         
         pc1 -left- ol1
-    }
+        pc1 - p4js1
+        pc1 - a61
+        ah1 -( tsapi1
+        pd -down-( tsapi1
+        ah1 - pd
 }
 
     
-rectangle "Server" as server <<Server>> {
-    rectangle "Spring5" as spr5 <<Back-End Framework>> {
-        rectangle "Plugin Core" as pcs {
+rectangle "Server" as server <<Server Spring5>> {
+        component "Plugin Core" <<Java>> as pcs #FEFECE {
             [REST Controller] as rest
-            interface "REST API" as api
             [Model] as model
         }
-    }
-    [Hibernate] as hi
+        interface "**REST API**" as api
+        component "App Territorial" <<Configuration>> as atc
+        component "App Admin" <<Configuration>> as aac
+        [Spring5] <<Back-End Framework>> as s5 #Gold
+        atc -left- pcs
+        aac -left- pcs
+        s5 - pcs
 }
 
-[External WMS] as wms
+[External WMS] as wms #MediumAquaMarine
 ol -down- wms
 ol1 -down- wms
 
 
-database "Database" as db{
+database "Database (Back-Office)" as db{
 }
 
 
 :User1:
 :User2:
 
-User1 -down- territ : <<Internet>>
-User2 -- admin : <<Internet>>
+User1 -down- ah1 : <<Internet>>
+User2 -down- ah : <<Internet>>
 pc -down-( api
 pc1 -down-( api
 api -down- rest
 rest -left- model
-model -left- hi
-hi -down- db
+model -down- "<<Spring JPA - Hibernate>>" db
 
 
 @enduml
