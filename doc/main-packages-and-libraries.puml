@@ -1,37 +1,50 @@
 @startuml
 
 skinparam componentStyle uml2
+skinparam linetype ortho
 
 title Main packages and libraries
 
-package "sitmun-admin-app" as admin <<application>> {
+package "sitmun-admin-app" as admin <<SITMUN Application>> #Orange
+
+package "sitmun-territorial-app" as territorial <<SITMUN Application>> #Orange
+
+package "sitmun-plugin-demo" <<Angular Library>> as pd #LightPink
+
+package "@sitmun/frontend-gui" as sfg <<Angular Library>> #LightPink {
+    package "OpenLayers4" as OL4
+    package "Material Angular" as MA
 }
 
-package "sitmun-territorial-app" as territorial <<application>> {
-}
+package "@sitmun/frontend-core" <<Angular Library>> as sfc #LightPink
 
 
-package "sitmun-plugin-demo" as demo <<plugin>> {
+package "Angular6" as An6
 
-}
 
-package "sitmun-plugin-core" as core <<plugin>> {
-    package "Front-End Libraries" {
-        package "Webpack" as WP
-        package "OpenLayers4" as OL4
-        package "Material Angular" as MA
-        package "Angular6" as An6
-    }
-    package "Back-End Libraries" {
-        package "SpringBoot" as SprB
-        package "Spring5" as Spr5
-        package "Hibernate" as Hi
-    }
+package "sitmun-plugin-core" as core <<Spring Library>> #LightSkyBlue {
+    package "SpringBoot" as SprB
+    package "Spring5" as Spr5
+    package "Hibernate" as Hi
 } 
 
 
+territorial ..> pd
+territorial ..> sfg
+territorial ..> sfc
+territorial ..> core
+
+
+admin ..> sfg
+admin ..> sfc
 admin ..> core
-territorial ..> demo
-demo ..> core
+
+pd ..> sfg
+pd ..> sfc
+
+sfg ..> An6
+sfc ..> An6
+
+sfg ..> sfc
 
 @enduml
