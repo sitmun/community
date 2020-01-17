@@ -5,28 +5,37 @@ skinparam linetype ortho
 
 title Main packages and libraries
 
-package "sitmun-admin-app" as admin <<SITMUN Application>> #Orange
+package "sitmun-admin-app" as admin <<Angular Application>> #Orange
 
-package "sitmun-territorial-app" as territorial <<SITMUN Application>> #Orange
+package "sitmun-territorial-app" as territorial <<Angular Application>> #Orange
 
 package "sitmun-plugin-demo" <<Angular Library>> as pd #LightPink
 
 package "@sitmun/frontend-gui" as sfg <<Angular Library>> #LightPink {
-    package "OpenLayers4" as OL4
-    package "Material Angular" as MA
 }
+
+package "OpenLayers4" as OL4 <<JavaScript>>
+package "@angular/material" as MA <<Angular Library>>
+
+sfg ..> OL4
+sfg ..> MA
+
 
 package "@sitmun/frontend-core" <<Angular Library>> as sfc #LightPink
 
 
-package "Angular6" as An6
+package "Angular" as An <<TypeScript>>
 
 
-package "sitmun-plugin-core" as core <<Spring Library>> #LightSkyBlue {
-    package "SpringBoot" as SprB
-    package "Spring5" as Spr5
-    package "Hibernate" as Hi
+package "org.sitmun.plugin.core" as core <<Java Library>> #LightSkyBlue {
 } 
+
+package "Spring" as Spr <<Java>> #LightSteelBlue{
+  package "SpringBoot" as SprB <<Java>> #LightSteelBlue
+  package "Hibernate" as Hi <<Java>> #LightSteelBlue
+}
+
+core ..> Spr
 
 
 territorial ..> pd
@@ -42,8 +51,8 @@ admin ..> core
 pd ..> sfg
 pd ..> sfc
 
-sfg ..> An6
-sfc ..> An6
+sfg ..> An
+sfc ..> An
 
 sfg ..> sfc
 
