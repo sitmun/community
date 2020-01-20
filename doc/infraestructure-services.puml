@@ -1,25 +1,50 @@
 @startuml
 
-title Services Infraestructure
+title Build Infraestructure
+skinparam linetype ortho
 
 
-
+rectangle "Developer Computer" {
+    rectangle "Gradle Configuration" as gradleconf {
+        [Gradlew] as gradlew
+        [Npm] as npm
+        [Ng] as ng
+        [Java] as jv
+        [Sonarqube] as sq
+        [Maven] as mv
+    }
 [Git] as git
-[GitHub] as github
-[TravisCI] as travis
-[Gradle] as gradle
-[Maven] as maven
-[SonarCloud] as sonar
-[Docker] as docker
-package Server <<Frame>> {
 }
 
-git -up-> github: git pull
-github <-right- travis: build
-travis -down-> gradle
-gradle -down-> maven
-travis <-right- sonar: test
-sonar <-right- docker
-docker -down-> Server: deploy
+
+rectangle "GitHub" {
+    rectangle "GitHub Repositories" as github
+    rectangle "Github Packages" as ghp
+}
+
+
+rectangle "TravisCI" as travis
+
+rectangle "SonarCloud" as sonar
+
+
+
+gradlew ..> npm
+gradlew ..> ng
+gradlew ..> sq
+gradlew ..> mv
+gradlew ..> jv
+
+
+
+git .right.> "pull / push" github
+github .down.> "built on" travis
+
+travis ..> "analyzed on" sonar
+gradleconf .down.> "analyzed on" sonar
+
+gradleconf .down.> "published to" ghp
+travis "published to" .left.> ghp 
+
 
 @enduml
