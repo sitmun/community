@@ -1,5 +1,4 @@
 @startuml
-
 skinparam componentStyle uml2
 skinparam linetype ortho
 
@@ -39,13 +38,22 @@ rectangle "Server" as server <<Server Spring>> {
         component "Backend Core" <<Java - Spring>> as pcs #FEFECE {
             [REST Controller] as rest
             [Model] as model
+            [Proxy] as proxy
+
         }
         interface "**REST API**" as api
+        interface "**Proxy API**" as proxyApi
 
 }
 
 [External Map Service] as wms <<OGC WMS Service>> #MediumAquaMarine
 ol1 -down- wms
+ol1 -down-( proxyApi
+
+[Intranet Map Service\nPassword-protected Map Service\nNon-HTTPS Map Service\netc.] as intranetWMS <<OGC WMS Service>> #MediumAquaMarine
+
+proxy -left- intranetWMS
+
 
 
 database "Database (Back-Office)" as db{
@@ -58,10 +66,10 @@ database "Database (Back-Office)" as db{
 User -down- ah1 : <<Internet>>
 Administrator -down- ah : <<Internet>>
 fc -down-( api
-fc1 -down-( api
+fc1 -( api
 api -down- rest
+proxyApi -down- proxy
 rest -down- model
+proxy -down- model
 model -down- "<<Spring JPA - Hibernate>>" db
-
-
 @enduml
