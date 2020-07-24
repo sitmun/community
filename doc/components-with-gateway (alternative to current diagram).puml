@@ -1,0 +1,74 @@
+@startuml
+skinparam componentStyle uml2
+skinparam linetype ortho
+
+
+title Component diagram
+
+rectangle "Admin App" as admin {
+        [Admin App Home] <<Angular>> as ah
+        [Frontend Core] <<Angular>> as fc
+        [Frontend GUI] <<Angular / Angular Material>> as fg
+        ah - fc
+        ah -down- fg
+        fc -up- fg
+}
+
+
+rectangle "Territorial App" as territ {
+        [Territorial App Home] <<Angular>> as ah1
+        [Frontend Core] <<Angular>> as fc1
+        [Frontend GUI] <<Angular / Angular Material>> as fg1
+        [OpenLayers4] as ol1 <<JavaScript>> #MistyRose
+        component "Plugin Demo" <<Angular>> as pd
+    
+        
+        fg1 -down- ol1
+        fg1 - fc1
+        ah1 - fc1
+        ah1 - fg1
+        ah1 -down- pd
+        
+        pd - fg1
+        pd - fc1
+}
+
+    
+rectangle "Server" as server <<Server Spring>> {
+        component "Backend Core" <<Java - Spring>> as pcs #FEFECE {
+            [REST Controller] as rest
+            [Model] as model
+            [Proxy] as proxy    
+            [Gateway] as gateway              
+        }
+        interface "**REST API**" as api       
+}
+
+[External Map Service] as wms <<OGC WMS Service>> #MediumAquaMarine
+ol1 -down- wms
+ol1 -down-( api
+
+[Intranet Map Service\nPassword-protected Map Service\nNon-HTTPS Map Service\netc.] as intranetWMS <<OGC WMS Service>> #MediumAquaMarine
+
+proxy -left- intranetWMS
+
+
+
+database "Database (Back-Office)" as db{
+}
+
+
+:User:
+:Administrator:
+
+User -down- ah1 : <<Internet>>
+Administrator -down- ah : <<Internet>>
+fc -down-( api
+fc1 -( api
+api -down- gateway
+gateway -down- proxy
+gateway -down- rest
+rest -down- model
+proxy -down- model
+model -down- "<<Spring JPA - Hibernate>>" db
+@enduml
