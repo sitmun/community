@@ -1,17 +1,19 @@
 @startuml
-
 title Build Infraestructure
 skinparam linetype ortho
 
 
 rectangle "Developer Computer" {
-    rectangle "Gradle Configuration" as gradleconf {
+    rectangle "Gradle Builds" as gradleconf {
         [Gradlew] as gradlew
-        [Npm] as npm
-        [Ng] as ng
         [Java] as jv
         [Sonarqube] as sq
         [Maven] as mv
+    }
+    rectangle "Angular/Node builds" as nodeconf {
+        [Npm] as npm
+        [Ng] as ng
+        [Sonarqube] as sqn
     }
 [Git] as git
 }
@@ -23,14 +25,12 @@ rectangle "GitHub" {
 }
 
 
-rectangle "TravisCI" as travis
+rectangle "CI Server" as ci
 
 rectangle "SonarCloud" as sonar
 
 
 
-gradlew ..> npm
-gradlew ..> ng
 gradlew ..> sq
 gradlew ..> mv
 gradlew ..> jv
@@ -38,13 +38,12 @@ gradlew ..> jv
 
 
 git .right.> "pull / push" github
-github .down.> "built on" travis
+github .down.> "built on" ci
 
-travis ..> "analyzed on" sonar
+ci ..> "analyzed on" sonar
 gradleconf .down.> "analyzed on" sonar
 
 gradleconf .down.> "published to" ghp
-travis "published to" .left.> ghp 
-
-
+nodeconf .down.> "published to" ghp
+ci "published to" .left.> ghp
 @enduml
