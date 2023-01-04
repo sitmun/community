@@ -6,4 +6,4 @@ Most of the information is in [the wiki](https://github.com/sitmun/community/wik
 
 ## Contents
 
-- [Requerimientos técnicos API SITMUN](rreq-tec/requerimientos-tecnicos-api-sitmun.md). In Spanish.
+- [Requerimientos técnicos API SITMUN](req-tec/requerimientos-tecnicos-api-sitmun.md). In Spanish.

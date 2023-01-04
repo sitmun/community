@@ -10,3 +10,6 @@ out/
 .project
 .settings/
 bin/
+
+# Ignore backup files
+*.bkp
