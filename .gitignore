@@ -13,3 +13,6 @@ bin/
 
 # Ignore backup files
 *.bkp
+
+# Ignore other files
+.DS_STORE
