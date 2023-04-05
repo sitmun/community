@@ -1,5 +1,10 @@
 # Requerimientos técnicos API SITMUN
 
+**Este documento está deprecated**. La versión más actualizada de esta documentación está en <https://sitmun.github.io>.
+
+----
+
+
 ## Arquitectura del Cliente de SITMUN 3
 
 ### Contexto del sistema
