@@ -1,9 +1,6 @@
-# SITMUN Community Documentation
+# SITMUN Community
 
-General documentation, governance and guidelines of the SITMUN project and its community.
+Este repositorio tiene algunas cosas generales comunes a SITMUN que no tienen un sitio mejor. Parte de la documentación técnica y de gestión del proyecto solía estar en la wiki asociada a este repositorio, pero no toda la documentación encajaba bien en ese formato, especialmente la que se autogenera a partir de código o especificaciones, la que tiene una componente gráfica que cambia a menudo (diagramas) etc. Así que ahora:
 
-Most of the information is in [the wiki](https://github.com/sitmun/community/wiki).
-
-## Contents
-
-- [Requerimientos técnicos API SITMUN](req-tec/requerimientos-tecnicos-api-sitmun.md). In Spanish.
+- La [documentación técnica y de gestión](https://sitmun.github.io) está centralizada en su propia web.
+- La [imagen corporativa de SITMUN](https://github.com/sitmun/community/wiki/Corporate-identity) está descrita en la wiki.
